@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>USBRelay</name>
+    </assembly>
+    <members>
+        <member name="M:USB.RelayManager.Close">
+            <summary>
+            Завершает работу менеджера реле и очищает память.
+            </summary>
+        </member>
+        <member name="M:USB.RelayManager.DevicesCount">
+            <summary>
+            Количество обнаруженных в системе модулей реле.
+            </summary>
+            <returns>Возвращает число реле, если библиотека была инициализирована, иначе -1</returns>
+        </member>
+        <member name="M:USB.RelayManager.Init">
+            <summary>
+            Инициализирует менеджер реле. Эта функция должна быть вызвана перед остальными.
+            </summary>
+        </member>
+        <member name="M:USB.RelayManager.CloseDevice">
+            <summary>
+            Закрывает открытое реле.
+            </summary>
+            <returns>True при успешном закрытии открытого ранее реле.</returns>
+        </member>
+        <member name="M:USB.RelayManager.SelectDevice(System.Int32)">
+            <summary>
+            Устанавливает активное реле из списка устройств в системе. Открытое до этого реле закрывается.
+            </summary>
+            <param name="deviceIndex">Индекс реле, нумерация с 0</param>
+            <returns>True при успехе, false в противном случае</returns>
+        </member>
+        <member name="M:USB.RelayManager.ChannelsCount">
+            <summary>
+            Число портов активного реле.
+            </summary>
+            <returns>Число портов (каналов) реле, 0 в случае неудачи (например, устройство не открыто)</returns>
+        </member>
+        <member name="M:USB.RelayManager.OpenDevice">
+            <summary>
+            Открывает для работы реле, выбранное функцией Select.
+            </summary>
+            <returns>True при успешном открытии</returns>
+        </member>
+        <member name="M:USB.RelayManager.OpenDevice(System.Int32)">
+            <summary>
+            Открывает для работы реле с указанным индексом (нумерация с 0).
+            </summary>
+            <param name="deviceIndex">Индекс устройства от 0 до DevicesCount() - 1</param>
+            <returns>False в случае неудачи или если устройство уже открыто</returns>
+        </member>
+        <member name="M:USB.RelayManager.OpenChannel(System.Int32)">
+            <summary>
+            Открывает один канал выбранного и открытого ранее реле.
+            </summary>
+            <param name="channelIndex">Номер канала, нумерация с 1</param>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.CloseChannel(System.Int32)">
+            <summary>
+            Закрывает один канал выбранного и открытого ранее реле.
+            </summary>
+            <param name="channelIndex">Номер канала, нумерация с 1</param>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.OpenAllChannels">
+            <summary>
+            Открывает все каналы на выбранном и открытом реле.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.CloseAllChannels">
+            <summary>
+            Закрывает все каналы на выбранном и открытом реле.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.RelaySerial">
+            <summary>
+            Строка-идентификатор реле. Обычно длиной 5 символов.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.RelayStatus">
+            <summary>
+            Статус всех каналов на выбранном и открытом реле в виде целого числа.
+            Биты 0/1/2/3/4/5/6/7/8 соответствуют статусу 1/2/3/4/5/6/7/8 каналов реле.
+            Каждое значение бита 1 означает ON, 0 означает OFF.
+            Устройство должно быть открыто, иначе функция вернёт 0.
+            </summary>
+            <returns>Битовая маска состояния каналов реле, если значение >= 0. Отрицательное значение означает ошибку.</returns>
+        </member>
+        <member name="M:USB.RelayManager.Inited">
+            <summary>
+            Перепроверяет (пытается заново инициализировать) и возвращает статус инициализации.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.CurrentDeviceIndex">
+            <summary>
+            Возвращает номер текущего реле из списка устройств.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.ChannelOpened(System.Int32)">
+            <summary>
+            Проверяет, открыт ли указанный канал реле.
+            </summary>
+            <param name="channelIndex">Индекс канала, нумерация с 1</param>
+            <returns>True если всё в порядке и канал открыт, false в противном случае (реле не открыто или произошла ошибка)</returns>
+        </member>
+        <member name="M:USB.RelayManager.Open(System.Int32,System.Int32)">
+            <summary>
+            Открывает указанный канал на реле с заданным индексом.
+            </summary>
+            <param name="deviceIndex">Номер устройства, нумерация с 0</param>
+            <param name="channelIndex">Номер канала на заданном реле, нумерация с 1</param>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.Close(System.Int32,System.Int32)">
+            <summary>
+            Закрывает указанный канал на реле с заданным индексом.
+            </summary>
+            <param name="deviceIndex">Номер устройства, нумерация с 0</param>
+            <param name="channelIndex">Номер канала на заданном реле, нумерация с 1</param>
+            <returns></returns>
+        </member>
+        <member name="M:USB.RelayManager.Invert(System.Int32,System.Int32)">
+            <summary>
+            Инвертирует указанный канал на реле с заданным индексом.
+            </summary>
+            <param name="deviceIndex">Номер устройства, нумерация с 0</param>
+            <param name="channelIndex">Номер канала на заданном реле, нумерация с 1</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
